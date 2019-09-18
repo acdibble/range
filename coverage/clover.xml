@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1568786781728" clover="3.2.0">
+  <project timestamp="1568786781728" name="All files">
+    <metrics statements="27" coveredstatements="27" conditionals="33" coveredconditionals="33" methods="4" coveredmethods="4" elements="64" coveredelements="64" complexity="0" loc="27" ncloc="27" packages="1" files="1" classes="1"/>
+    <file name="Range.ts" path="/home/andrew/code/range/src/Range.ts">
+      <metrics statements="27" coveredstatements="27" conditionals="33" coveredconditionals="33" methods="4" coveredmethods="4"/>
+      <line num="1" count="6147" type="cond" truecount="3" falsecount="0"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="13" count="2053" type="cond" truecount="2" falsecount="0"/>
+      <line num="14" count="22" type="stmt"/>
+      <line num="15" count="22" type="stmt"/>
+      <line num="17" count="2031" type="stmt"/>
+      <line num="18" count="2031" type="stmt"/>
+      <line num="21" count="2053" type="cond" truecount="4" falsecount="0"/>
+      <line num="22" count="2" type="stmt"/>
+      <line num="23" count="2051" type="cond" truecount="2" falsecount="0"/>
+      <line num="24" count="1" type="stmt"/>
+      <line num="27" count="2050" type="cond" truecount="4" falsecount="0"/>
+      <line num="28" count="3" type="stmt"/>
+      <line num="29" count="2047" type="cond" truecount="2" falsecount="0"/>
+      <line num="30" count="2" type="stmt"/>
+      <line num="33" count="2045" type="cond" truecount="4" falsecount="0"/>
+      <line num="34" count="2" type="stmt"/>
+      <line num="35" count="2043" type="cond" truecount="2" falsecount="0"/>
+      <line num="36" count="1" type="stmt"/>
+      <line num="37" count="2042" type="cond" truecount="2" falsecount="0"/>
+      <line num="38" count="1" type="stmt"/>
+      <line num="41" count="2041" type="stmt"/>
+      <line num="42" count="2041" type="stmt"/>
+      <line num="43" count="2041" type="cond" truecount="3" falsecount="0"/>
+      <line num="49" count="2037" type="stmt"/>
+      <line num="50" count="3236" type="stmt"/>
+      <line num="55" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
