@@ -8,23 +8,23 @@ describe('Range', () => {
       expect(range).toBeInstanceOf(Range);
     });
 
-    it('throws an error when end parameter is not provided', () => {
-      expect(() => new Range()).toThrow('Parameter "end" is not a number');
+    it('throws an error when stop parameter is not provided', () => {
+      expect(() => new Range()).toThrow('Parameter "stop" is not a number');
     });
 
-    it('throws an error when end parameter is not a number', () => {
-      expect(() => new Range('a')).toThrow('Parameter "end" is not a number');
+    it('throws an error when stop parameter is not a number', () => {
+      expect(() => new Range('a')).toThrow('Parameter "stop" is not a number');
     });
 
-    it('throws an error when end parameter is not an integer', () => {
-      expect(() => new Range(1.1)).toThrow('Parameter "end" must be an integer');
+    it('throws an error when stop parameter is not an integer', () => {
+      expect(() => new Range(1.1)).toThrow('Parameter "stop" must be an integer');
     });
 
-    it('throws an error when end parameter is NaN', () => {
-      expect(() => new Range(NaN)).toThrow('Parameter "end" is not a number');
+    it('throws an error when stop parameter is NaN', () => {
+      expect(() => new Range(NaN)).toThrow('Parameter "stop" is not a number');
     });
 
-    it('throws an error when end parameter is not an integer', () => {
+    it('throws an error when stop parameter is not an integer', () => {
       expect(() => new Range(1.1)).toThrow();
     });
 
@@ -45,10 +45,15 @@ describe('Range', () => {
     it('returns an range of 0-9 if 10 is passed in', () => {
       expect([...new Range(10)]).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     });
+
+    it('returns identical results for lazy and eager versions', () => {
+      expect([...new Range(9, { lazy: true })])
+        .toEqual([...new Range(9, { lazy: false })]);
+    });
   });
 
   describe('2 args', () => {
-    it('accepts a start and an end', () => {
+    it('accepts a start and an stop', () => {
       expect(new Range(1, 99)).toBeInstanceOf(Range)
     });
 
@@ -62,6 +67,11 @@ describe('Range', () => {
 
     it('handles negative starting ranges', () => {
       expect([...new Range(-10, 0)]).toEqual([-10, -9, -8, -7, -6, -5, -4, -3, -2, -1]);
+    });
+
+    it('returns identical results for lazy and eager versions', () => {
+      expect([...new Range(1, 99, { lazy: true })])
+        .toEqual([...new Range(1, 99, { lazy: false })]);
     });
 
     it('throws an error when start parameter is not a number', () => {
@@ -102,7 +112,12 @@ describe('Range', () => {
       expect([...new Range(1, 99, 14)]).toEqual([1, 15, 29, 43, 57, 71, 85]);
     });
 
-    it('returns the start as the only element if the step is greater than end - start', () => {
+    it('returns identical results for lazy and eager versions', () => {
+      expect([...new Range(1, 99, 14, { lazy: true })])
+        .toEqual([...new Range(1, 99, 14, { lazy: false })]);
+    });
+
+    it('returns the start as the only element if the step is greater than stop - start', () => {
       expect([...new Range(0, 1, 3)]).toEqual([0]);
     });
 
@@ -110,11 +125,11 @@ describe('Range', () => {
       expect([...new Range(0, 4, 3)]).toEqual([0, 3]);
     });
 
-    it('handles steps that will never end', () => {
+    it('handles steps that will never stop', () => {
       expect([...new Range(10, 1, 1)]).toEqual([]);
     });
 
-    it('handles steps that will never end', () => {
+    it('handles steps that will never stop', () => {
       expect([...new Range(1, 10, -2)]).toEqual([]);
     });
 

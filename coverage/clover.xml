@@ -1,36 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1568786781728" clover="3.2.0">
-  <project timestamp="1568786781728" name="All files">
-    <metrics statements="27" coveredstatements="27" conditionals="33" coveredconditionals="33" methods="4" coveredmethods="4" elements="64" coveredelements="64" complexity="0" loc="27" ncloc="27" packages="1" files="1" classes="1"/>
+<coverage generated="1568791104740" clover="3.2.0">
+  <project timestamp="1568791104740" name="All files">
+    <metrics statements="50" coveredstatements="50" conditionals="44" coveredconditionals="44" methods="6" coveredmethods="6" elements="100" coveredelements="100" complexity="0" loc="50" ncloc="50" packages="1" files="1" classes="1"/>
     <file name="Range.ts" path="/home/andrew/code/range/src/Range.ts">
-      <metrics statements="27" coveredstatements="27" conditionals="33" coveredconditionals="33" methods="4" coveredmethods="4"/>
-      <line num="1" count="6147" type="cond" truecount="3" falsecount="0"/>
-      <line num="5" count="1" type="stmt"/>
-      <line num="13" count="2053" type="cond" truecount="2" falsecount="0"/>
-      <line num="14" count="22" type="stmt"/>
-      <line num="15" count="22" type="stmt"/>
-      <line num="17" count="2031" type="stmt"/>
-      <line num="18" count="2031" type="stmt"/>
-      <line num="21" count="2053" type="cond" truecount="4" falsecount="0"/>
-      <line num="22" count="2" type="stmt"/>
-      <line num="23" count="2051" type="cond" truecount="2" falsecount="0"/>
-      <line num="24" count="1" type="stmt"/>
-      <line num="27" count="2050" type="cond" truecount="4" falsecount="0"/>
-      <line num="28" count="3" type="stmt"/>
-      <line num="29" count="2047" type="cond" truecount="2" falsecount="0"/>
-      <line num="30" count="2" type="stmt"/>
-      <line num="33" count="2045" type="cond" truecount="4" falsecount="0"/>
-      <line num="34" count="2" type="stmt"/>
-      <line num="35" count="2043" type="cond" truecount="2" falsecount="0"/>
-      <line num="36" count="1" type="stmt"/>
-      <line num="37" count="2042" type="cond" truecount="2" falsecount="0"/>
-      <line num="38" count="1" type="stmt"/>
-      <line num="41" count="2041" type="stmt"/>
-      <line num="42" count="2041" type="stmt"/>
-      <line num="43" count="2041" type="cond" truecount="3" falsecount="0"/>
-      <line num="49" count="2037" type="stmt"/>
-      <line num="50" count="3236" type="stmt"/>
-      <line num="55" count="1" type="stmt"/>
+      <metrics statements="50" coveredstatements="50" conditionals="44" coveredconditionals="44" methods="6" coveredmethods="6"/>
+      <line num="5" count="6165" type="cond" truecount="3" falsecount="0"/>
+      <line num="9" count="4118" type="cond" truecount="2" falsecount="0"/>
+      <line num="12" count="1" type="stmt"/>
+      <line num="19" count="1" type="stmt"/>
+      <line num="22" count="2059" type="stmt"/>
+      <line num="23" count="2059" type="stmt"/>
+      <line num="25" count="2059" type="stmt"/>
+      <line num="26" count="2059" type="stmt"/>
+      <line num="27" count="2059" type="stmt"/>
+      <line num="28" count="2059" type="stmt"/>
+      <line num="30" count="2059" type="cond" truecount="2" falsecount="0"/>
+      <line num="31" count="2" type="stmt"/>
+      <line num="32" count="2" type="stmt"/>
+      <line num="33" count="2" type="stmt"/>
+      <line num="36" count="2059" type="cond" truecount="2" falsecount="0"/>
+      <line num="37" count="2" type="stmt"/>
+      <line num="38" count="2" type="stmt"/>
+      <line num="41" count="2059" type="cond" truecount="2" falsecount="0"/>
+      <line num="42" count="22" type="stmt"/>
+      <line num="43" count="22" type="stmt"/>
+      <line num="46" count="2059" type="cond" truecount="4" falsecount="0"/>
+      <line num="47" count="2" type="stmt"/>
+      <line num="48" count="2057" type="cond" truecount="2" falsecount="0"/>
+      <line num="49" count="1" type="stmt"/>
+      <line num="52" count="2056" type="cond" truecount="4" falsecount="0"/>
+      <line num="53" count="3" type="stmt"/>
+      <line num="54" count="2053" type="cond" truecount="2" falsecount="0"/>
+      <line num="55" count="2" type="stmt"/>
+      <line num="58" count="2051" type="cond" truecount="4" falsecount="0"/>
+      <line num="59" count="2" type="stmt"/>
+      <line num="60" count="2049" type="cond" truecount="2" falsecount="0"/>
+      <line num="61" count="1" type="stmt"/>
+      <line num="62" count="2048" type="cond" truecount="2" falsecount="0"/>
+      <line num="63" count="1" type="stmt"/>
+      <line num="66" count="2047" type="stmt"/>
+      <line num="67" count="2047" type="stmt"/>
+      <line num="68" count="2047" type="stmt"/>
+      <line num="70" count="2047" type="cond" truecount="3" falsecount="0"/>
+      <line num="74" count="2047" type="cond" truecount="2" falsecount="0"/>
+      <line num="75" count="2044" type="stmt"/>
+      <line num="76" count="2044" type="stmt"/>
+      <line num="77" count="3497" type="stmt"/>
+      <line num="80" count="3" type="stmt"/>
+      <line num="85" count="2043" type="cond" truecount="2" falsecount="0"/>
+      <line num="86" count="2040" type="stmt"/>
+      <line num="89" count="3" type="stmt"/>
+      <line num="90" count="3" type="stmt"/>
+      <line num="91" count="3" type="stmt"/>
+      <line num="92" count="114" type="stmt"/>
+      <line num="98" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
