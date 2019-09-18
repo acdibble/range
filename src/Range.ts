@@ -11,14 +11,23 @@ const isObject = (obj: any): obj is object => typeof obj === 'object'
 
 export default class Range {
   private step: number;
+
   private opts: IOptions;
+
   private start: number;
+
   private range: number[];
+
   private length: number;
 
   static defaultOpts = { lazy: false };
 
-  constructor(start: number, stop?: number | IOptions, step: number | IOptions = 1, opts = Range.defaultOpts) {
+  constructor(
+    start: number,
+    stop?: number | IOptions,
+    step: number | IOptions = 1,
+    opts = Range.defaultOpts,
+  ) {
     this.range = [];
     this.length = 0;
 
@@ -87,13 +96,14 @@ export default class Range {
     }
 
     const { length, step, start } = this;
-    return (function*() {
+    return (function* range() {
       for (let i = 0; i < length; i++) {
         yield start + (i * step);
       }
-    })();
+    }());
   }
 
+  // eslint-disable-next-line class-methods-use-this
   get [Symbol.toStringTag]() {
     return 'Range';
   }
