@@ -37,18 +37,35 @@ A work in progress.
 [ 1, 26, 51, 76 ]
 ```
 
-#### Additional functionality:
-In order to support both `xrange()` and `range()`, I've added a fourth parameter, which can take an options object. This allows for lazy and eager evaluation wrapped into one API:
+#### Iteration:
+```python
+>>> sum = 0
+>>> for x in range(10):
+...     sum += x
+...
+>>> sum
+45
+```
 ```javascript
-> [...new Range(10, { lazy: true })];
-[ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+> let sum = 0;
+undefined
+> for (const x of new Range(10)) {
+... sum += x;
+... }
+45
+```
+or
+```javascript
+> new Range(10).toArray().reduce((acc, num) => acc + num, 0);
+45
+```
+#### Equality:
+```python
+range(0, 3, 2) == range(0, 4, 2)
+True
 ```
 
-Custom toString tag:
 ```javascript
-> Object.prototype.toString.call(new Range(10));
-'[object Range]'
+> new Range(0, 3, 2).equals(new Range(0, 4, 2))
+true
 ```
-
-TODO:
-More member functions, e.g. slice, index lookup(?)...
