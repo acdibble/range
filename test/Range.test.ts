@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import * as sinon from 'sinon';
 import Range from '../src/Range';
 
 describe('Range', () => {
