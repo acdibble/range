@@ -2,7 +2,7 @@ const isNumber = (obj: any): obj is number => typeof obj === 'number'
   && Object.prototype.toString.call(obj) === '[object Number]'
   && !Number.isNaN(obj);
 
-type NumberOrFalsey = number | undefined | null;
+type NumberOrNullish = number | undefined | null;
 
 export default class Range {
   readonly step: number;
@@ -110,7 +110,7 @@ export default class Range {
     return -1;
   }
 
-  slice(start: NumberOrFalsey, end?: NumberOrFalsey, step: NumberOrFalsey = 1): Range {
+  slice(start: NumberOrNullish, end?: NumberOrNullish, step: NumberOrNullish = 1): Range {
     const stepMult = isNumber(step) && Number.isInteger(step)
       ? step
       : 1;
