@@ -83,7 +83,6 @@ export default class Range {
       otherVal = otherGen.next();
     }
 
-    // typescript workaround
     return Boolean(thisVal.done && otherVal.done);
   }
 
