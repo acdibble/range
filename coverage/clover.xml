@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1569110774991" clover="3.2.0">
-  <project timestamp="1569110774992" name="All files">
+<coverage generated="1569177585497" clover="3.2.0">
+  <project timestamp="1569177585497" name="All files">
     <metrics statements="79" coveredstatements="79" conditionals="63" coveredconditionals="63" methods="10" coveredmethods="10" elements="152" coveredelements="152" complexity="0" loc="79" ncloc="79" packages="1" files="1" classes="1"/>
-    <file name="Range.ts" path="/home/andrew/code/range/src/Range.ts">
+    <file name="LazyRange.ts" path="/home/andrew/code/range/src/LazyRange.ts">
       <metrics statements="79" coveredstatements="79" conditionals="63" coveredconditionals="63" methods="10" coveredmethods="10"/>
       <line num="1" count="6319" type="cond" truecount="3" falsecount="0"/>
       <line num="7" count="1" type="stmt"/>

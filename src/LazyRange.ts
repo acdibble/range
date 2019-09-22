@@ -4,7 +4,7 @@ const isNumber = (obj: any): obj is number => typeof obj === 'number'
 
 type NumberOrNullish = number | undefined | null;
 
-export default class Range {
+export default class LazyRange {
   readonly step: number;
 
   readonly start: number;
@@ -13,8 +13,8 @@ export default class Range {
 
   readonly length: number;
 
-  static isRange(obj: unknown): obj is Range {
-    return Object.prototype.toString.call(obj) === '[object Range]';
+  static isRange(obj: unknown): obj is LazyRange {
+    return Object.prototype.toString.call(obj) === '[object LazyRange]';
   }
 
   constructor(start: number, stop?: number, step: number = 1) {
@@ -65,7 +65,7 @@ export default class Range {
   }
 
   equals(range: unknown): boolean {
-    if (!Range.isRange(range)) {
+    if (!LazyRange.isRange(range)) {
       return false;
     }
 
@@ -110,7 +110,7 @@ export default class Range {
     return -1;
   }
 
-  slice(start: NumberOrNullish, end?: NumberOrNullish, step: NumberOrNullish = 1): Range {
+  slice(start: NumberOrNullish, end?: NumberOrNullish, step: NumberOrNullish = 1): LazyRange {
     const { length } = this;
 
     const stepMult = isNumber(step) && Number.isInteger(step)
@@ -145,7 +145,7 @@ export default class Range {
       }
     }
 
-    return new Range(startVal, endVal, this.step * stepMult);
+    return new LazyRange(startVal, endVal, this.step * stepMult);
   }
 
   at(index: number): number | void {
@@ -162,6 +162,6 @@ export default class Range {
 
   // eslint-disable-next-line class-methods-use-this
   get [Symbol.toStringTag](): string {
-    return 'Range';
+    return 'LazyRange';
   }
 }
