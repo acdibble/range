@@ -2,7 +2,10 @@
   "name": "lazy-range",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/LazyRange.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "compile": "rm -rf dist && ./node_modules/.bin/tsc",
     "test": "jest --watch --collectCoverage",
