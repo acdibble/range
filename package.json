@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "compile": "rm -rf dist && ./node_modules/.bin/tsc",
-    "test": "jest --watch --collectCoverage"
+    "test": "jest --watch --collectCoverage",
+    "prepublish": "npm run compile"
   },
   "author": "",
   "license": "ISC",
