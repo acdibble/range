@@ -111,6 +111,8 @@ export default class Range {
   }
 
   slice(start: NumberOrNullish, end?: NumberOrNullish, step: NumberOrNullish = 1): Range {
+    const { length } = this;
+
     const stepMult = isNumber(step) && Number.isInteger(step)
       ? step
       : 1;
@@ -118,21 +120,17 @@ export default class Range {
     const gen = this[Symbol.iterator]();
 
     let startIndex = start;
-    if (!isNumber(start)) {
-      startIndex = 0;
-    } else if (start < 0 && Math.abs(start) > this.length) {
+    if (!isNumber(start) || (start < 0 && Math.abs(start) > length)) {
       startIndex = 0;
     } else if (start < 0) {
-      startIndex = this.length + start;
+      startIndex = length + start;
     }
 
     let endIndex = end;
     if (!isNumber(end)) {
-      endIndex = this.length;
-    } else if (end < 0 && Math.abs(end) > this.length) {
-      endIndex = 0;
+      endIndex = length;
     } else if (end < 0) {
-      endIndex = this.length + end;
+      endIndex = Math.abs(end) > length ? 0 : length + end;
     }
 
     let startVal: number = this.start;
