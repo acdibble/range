@@ -1,7 +1,7 @@
 {
-  "name": "lazy-range",
+  "name": "@acdibble/lazy-range",
   "version": "0.1.0",
-  "description": "",
+  "description": "A port of Python 3's range class to JavaScript.",
   "main": "dist/LazyRange.js",
   "files": [
     "dist"
@@ -9,9 +9,9 @@
   "scripts": {
     "compile": "rm -rf dist && ./node_modules/.bin/tsc",
     "test": "jest --watch --collectCoverage",
-    "prepublish": "npm run compile"
+    "prepublishOnly": "npm run compile"
   },
-  "author": "",
+  "author": "Andrew Dibble <acdibble@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@babel/parser": "^7.6.0",
@@ -28,5 +28,23 @@
     "ts-jest": "^24.1.0",
     "typedoc": "^0.15.0",
     "typescript": "^3.6.3"
-  }
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acdibble/range.git"
+  },
+  "keywords": [
+    "lazy",
+    "range",
+    "generator"
+  ],
+  "bugs": {
+    "url": "https://github.com/acdibble/range/issues"
+  },
+  "homepage": "https://github.com/acdibble/range#readme"
 }
