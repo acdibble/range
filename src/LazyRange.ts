@@ -4,7 +4,7 @@ const isNumber = (obj: any): obj is number => typeof obj === 'number'
 
 type NumberOrNullish = number | undefined | null;
 
-export default class LazyRange {
+class LazyRange {
   readonly step: number;
 
   readonly start: number;
@@ -165,3 +165,5 @@ export default class LazyRange {
     return 'LazyRange';
   }
 }
+
+export = LazyRange;
