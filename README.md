@@ -1,10 +1,16 @@
-## Python `range()` in JS
+## Python 3 `range()` in JS
 
-A work in progress.
+This is a memory-efficient range class. It only stores the start, stop, step,
+and length for a range. The values are generated as necessary via
+`Symbol.iterator`. It works with any ES2015 compliant browsers.
+
+Additionally, it's been adapted to match expected JavaScript behavior, e.g.
+using `Range#at` to look up an out of bounds index will return undefined, rather
+than throwing an error.
 
 ### Examples:
 
-#### Just stop:
+#### Just a stop parameter:
 ```python
 >>> list(range(10))
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -15,7 +21,7 @@ A work in progress.
 [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 ```
 
-#### Start and stop:
+#### With start and stop parameter:
 ```python
 >>> list(range(-10, 0))
 [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1]
@@ -26,7 +32,7 @@ A work in progress.
 [ -10, -9, -8, -7, -6, -5, -4, -3, -2, -1 ]
 ```
 
-#### Start, stop, step:
+#### With start, stop, and step parameters:
 ```python
 >>> list(range(1, 100, 25))
 [1, 26, 51, 76]
@@ -56,7 +62,7 @@ undefined
 ```
 or
 ```javascript
-> new Range(10).toArray().reduce((acc, num) => acc + num, 0);
+> [...new Range(10)].reduce((acc, num) => acc + num, 0);
 45
 ```
 #### Equality:
