@@ -87,17 +87,27 @@ class LazyRange {
   }
 
   has(number: number): boolean {
-    const { start, step, length } = this;
-    const index = (length * step + start) / number;
-    return Number.isInteger(index) && number >= 0;
+    const gen = this[Symbol.iterator]();
+
+    for (let it = gen.next(); !it.done; it = gen.next()) {
+      if (it.value === number) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   indexOf(number: number): number {
-    const { start, step } = this;
+    const gen = this[Symbol.iterator]();
 
-    if (!this.has(number)) return -1;
+    for (let it = gen.next(), i = 0; !it.done; it = gen.next(), i += 1) {
+      if (it.value === number) {
+        return i;
+      }
+    }
 
-    return (number - start) / step;
+    return -1;
   }
 
   slice(start: NumberOrNullish, end?: NumberOrNullish, step: NumberOrNullish = 1): LazyRange {
@@ -139,10 +149,15 @@ class LazyRange {
   }
 
   at(index: number): number | void {
-    const { step, start, stop } = this;
-    const value = step * index + start;
+    const gen = this[Symbol.iterator]();
 
-    return value >= stop ? undefined : value;
+    for (let it = gen.next(), i = 0; !it.done; it = gen.next(), i += 1) {
+      if (i === index) {
+        return it.value;
+      }
+    }
+
+    return undefined;
   }
 
   // eslint-disable-next-line class-methods-use-this
