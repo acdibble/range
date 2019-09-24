@@ -207,6 +207,10 @@ describe('LazyRange', () => {
       expect(range.has(10)).toBe(true);
     });
 
+    it('returns true if an element is not found', () => {
+      expect(range.has(30)).toBe(false);
+    });
+
     it('returns false if an element is not found', () => {
       expect(range.has(11)).toBe(false);
     });
