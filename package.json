@@ -1,6 +1,6 @@
 {
   "name": "@acdibble/lazy-range",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "A port of Python 3's range class to JavaScript.",
   "main": "dist/LazyRange.js",
   "files": [
