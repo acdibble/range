@@ -13,7 +13,7 @@ class LazyRange {
 
   readonly length: number;
 
-  static isRange(obj: unknown): obj is LazyRange {
+  static isRange(obj: any): obj is LazyRange {
     return Object.prototype.toString.call(obj) === '[object LazyRange]';
   }
 
@@ -53,6 +53,8 @@ class LazyRange {
       || +(rangeStart < rangeStop && step > 0)
       || +(rangeStop < rangeStart && step < 0);
 
+    this.length = this.length < 0 ? 0 : this.length;
+
     Object.freeze(this);
   }
 
@@ -64,50 +66,36 @@ class LazyRange {
     }
   }
 
-  equals(range: unknown): boolean {
-    if (!LazyRange.isRange(range)) {
-      return false;
-    }
+  equals(range: any): boolean {
+    if (!LazyRange.isRange(range)) return false;
 
-    const thisGen = this[Symbol.iterator]();
-    const otherGen = range[Symbol.iterator]();
+    if (this.length !== range.length) return false;
 
-    let thisVal = thisGen.next();
-    let otherVal = otherGen.next();
+    if (this.length === 0) return true;
 
-    while (!thisVal.done && !otherVal.done) {
-      if (thisVal.value !== otherVal.value) {
-        return false;
-      }
-      thisVal = thisGen.next();
-      otherVal = otherGen.next();
-    }
-
-    return Boolean(thisVal.done && otherVal.done);
+    return (this.step + this.start) === (range.step + range.start);
   }
 
   has(number: number): boolean {
-    const gen = this[Symbol.iterator]();
+    if (this.length === 0) return false;
 
-    for (let it = gen.next(); !it.done; it = gen.next()) {
-      if (it.value === number) {
-        return true;
-      }
-    }
+    const { start, step, length } = this;
 
-    return false;
+    const index = (number - start) / step;
+
+    return Number.isInteger(index) && index >= 0 && index < length;
   }
 
   indexOf(number: number): number {
-    const gen = this[Symbol.iterator]();
+    if (this.length === 0) return -1;
 
-    for (let it = gen.next(), i = 0; !it.done; it = gen.next(), i += 1) {
-      if (it.value === number) {
-        return i;
-      }
-    }
+    const { start, step, length } = this;
 
-    return -1;
+    const index = (number - start) / step;
+
+    return Number.isInteger(index) && index >= 0 && index < length
+      ? index
+      : -1;
   }
 
   slice(start: NumberOrNullish, end?: NumberOrNullish, step: NumberOrNullish = 1): LazyRange {
@@ -149,18 +137,18 @@ class LazyRange {
   }
 
   at(index: number): number | void {
-    const gen = this[Symbol.iterator]();
-
-    for (let it = gen.next(), i = 0; !it.done; it = gen.next(), i += 1) {
-      if (i === index) {
-        return it.value;
-      }
+    const { length } = this;
+    if (index < 0 || index >= length || length === 0 || !Number.isInteger(index)) {
+      return undefined;
     }
 
-    return undefined;
+    const { step, start } = this;
+
+    const value = index * step + start;
+
+    return value;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   get [Symbol.toStringTag](): string {
     return 'LazyRange';
   }

@@ -131,8 +131,8 @@ describe('LazyRange', () => {
     });
   });
 
-  /* eslint-disable no-restricted-syntax */
   describe('Big tests', () => {
+    /* eslint-disable no-restricted-syntax */
     it('matches a lot of test cases', () => {
       const expectedValues = JSON.parse(fs.readFileSync(`${__dirname}/test1.json`, 'utf8'));
       for (const x of new LazyRange(10)) {
@@ -166,12 +166,16 @@ describe('LazyRange', () => {
         }
       }
     });
+    /* eslint-enable no-restricted-syntax */
   });
-  /* eslint-enable no-restricted-syntax */
 
-  describe('toString', () => {
+  describe('LazyRange#toString', () => {
     it('returns [object LazyRange]', () => {
       expect(Object.prototype.toString.call(new LazyRange(0))).toEqual('[object LazyRange]');
+    });
+
+    it('returns [object LazyRange]', () => {
+      expect(new LazyRange(0).toString()).toEqual('[object LazyRange]');
     });
   });
 
@@ -204,11 +208,16 @@ describe('LazyRange', () => {
 
   describe('LazyRange#has', () => {
     const range = new LazyRange(0, 20, 2);
+    const numbers = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18];
     it('returns true if an element is found', () => {
-      expect(range.has(10)).toBe(true);
+      for (const number of numbers) {
+        expect(range.has(number)).toEqual(true);
+      }
     });
 
     it('returns false if an element is not found', () => {
+      expect(range.has(-1)).toBe(false);
+      expect(range.has(1)).toBe(false);
       expect(range.has(11)).toBe(false);
     });
 
@@ -218,17 +227,23 @@ describe('LazyRange', () => {
 
     it('returns false if an element is not found', () => {
       expect(new LazyRange(0, 20, -2).has(0)).toBe(false);
+      expect(new LazyRange(0).has(0)).toBe(false);
     });
   });
 
   describe('LazyRange#indexOf', () => {
     const range = new LazyRange(0, 20, 2);
+    const numbers = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18];
     it('returns the index of an element if found', () => {
-      expect(range.indexOf(10)).toEqual(5);
+      for (let i = 0; i < numbers.length; i += 1) {
+        expect(range.indexOf(numbers[i])).toEqual(i);
+      }
     });
 
     it('returns -1 if no element is found', () => {
-      expect(range.indexOf(11)).toEqual(-1);
+      expect(range.indexOf(-1)).toEqual(-1);
+      expect(range.indexOf(1)).toEqual(-1);
+      expect(range.indexOf(20)).toEqual(-1);
     });
 
     it('returns -1 if no element is found', () => {
@@ -303,15 +318,28 @@ describe('LazyRange', () => {
     });
 
     it('returns undefined when out of range', () => {
+      expect(range.at(10)).toEqual(undefined);
       expect(range.at(30)).toEqual(undefined);
     });
 
-    it('returns undefined when out of range', () => {
+    it('returns undefined when range length is 0', () => {
       expect(new LazyRange(0, 20, -2).at(5)).toEqual(undefined);
+      expect(new LazyRange(0).at(0)).toEqual(undefined);
     });
 
-    it('returns undefined when out of range', () => {
-      expect(new LazyRange(0, 20, -2).at(0)).toEqual(undefined);
+    it('returns undefined when non-integers are passed in', () => {
+      expect(new LazyRange(10).at([])).toEqual(undefined);
+      expect(new LazyRange(10).at(0.5)).toEqual(undefined);
+      expect(new LazyRange(10).at({})).toEqual(undefined);
+      expect(new LazyRange(10).at('a')).toEqual(undefined);
+    });
+  });
+
+  describe('length', () => {
+    it('gets the proper length', () => {
+      expect(new LazyRange(10).length).toEqual(10);
+      expect(new LazyRange(0, 10, -1).length).toEqual(0);
+      expect(new LazyRange(0).length).toEqual(0);
     });
   });
 });
