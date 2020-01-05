@@ -9,6 +9,7 @@
   "scripts": {
     "compile": "rm -rf dist && ./node_modules/.bin/tsc",
     "test": "jest --watch --collectCoverage",
+    "test:ci": "jest --collectCoverage",
     "prepublishOnly": "jest && npm run compile"
   },
   "author": "Andrew Dibble <acdibble@gmail.com>",
