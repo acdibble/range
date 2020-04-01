@@ -2,14 +2,12 @@ const isNumber = (obj: any): obj is number => typeof obj === 'number'
   && Object.prototype.toString.call(obj) === '[object Number]'
   && !Number.isNaN(obj);
 
-type NumberOrNullish = number | undefined | null;
-
 class LazyRange {
-  readonly step: number;
+  private readonly step: number;
 
-  readonly start: number;
+  private readonly start: number;
 
-  readonly stop: number;
+  private readonly stop: number;
 
   readonly length: number;
 
@@ -18,13 +16,16 @@ class LazyRange {
       && obj instanceof LazyRange;
   }
 
-  constructor(start: number, stop?: number, step: number = 1) {
-    let rangeStart = start;
-    let rangeStop = stop;
+  constructor(stop: number);
+  constructor(start: number, stop: number);
+  constructor(start: number, stop: number, step: number);
+  constructor(arg0: number, arg1?: number, arg2: number = 1) {
+    let rangeStart = arg0;
+    let rangeStop = arg1;
 
-    if (stop == null) {
+    if (arg1 == null) {
       rangeStart = 0;
-      rangeStop = start;
+      rangeStop = arg0;
     }
 
     if (!isNumber(rangeStart)) {
@@ -39,20 +40,20 @@ class LazyRange {
       throw new TypeError('Parameter "stop" must be an integer');
     }
 
-    if (!isNumber(step)) {
+    if (!isNumber(arg2)) {
       throw new TypeError('Parameter "step" is not a number');
-    } else if (!Number.isInteger(step)) {
+    } else if (!Number.isInteger(arg2)) {
       throw new TypeError('Parameter "step" must be an integer');
-    } else if (step === 0) {
+    } else if (arg2 === 0) {
       throw new RangeError('Parameter "step" must not be 0');
     }
 
     this.start = rangeStart;
-    this.step = step;
+    this.step = arg2;
     this.stop = rangeStop;
-    this.length = Math.ceil((rangeStop - rangeStart) / step)
-      || +(rangeStart < rangeStop && step > 0)
-      || +(rangeStop < rangeStart && step < 0);
+    this.length = Math.ceil((rangeStop - rangeStart) / arg2)
+      || +(rangeStart < rangeStop && arg2 > 0)
+      || +(rangeStop < rangeStart && arg2 < 0);
 
     this.length = this.length < 0 ? 0 : this.length;
 
@@ -99,27 +100,30 @@ class LazyRange {
       : -1;
   }
 
-  slice(start: NumberOrNullish, end?: NumberOrNullish, step: NumberOrNullish = 1): LazyRange {
+  slice(start: number): LazyRange;
+  slice(start: number | null, stop: number): LazyRange;
+  slice(start: number | null, stop: number | null, step: number): LazyRange;
+  slice(arg0?: number | null, arg1?: number | null, arg2: number = 1): LazyRange {
     const { length } = this;
 
-    const stepMult = isNumber(step) && Number.isInteger(step)
-      ? step
+    const stepMult = isNumber(arg2) && Number.isInteger(arg2)
+      ? arg2
       : 1;
 
     const gen = this[Symbol.iterator]();
 
-    let startIndex = start;
-    if (!isNumber(start) || (start < 0 && Math.abs(start) > length)) {
+    let startIndex = arg0;
+    if (!isNumber(arg0) || (arg0 < 0 && Math.abs(arg0) > length)) {
       startIndex = 0;
-    } else if (start < 0) {
-      startIndex = length + start;
+    } else if (arg0 < 0) {
+      startIndex = length + arg0;
     }
 
-    let endIndex = end;
-    if (!isNumber(end)) {
+    let endIndex = arg1;
+    if (!isNumber(arg1)) {
       endIndex = length;
-    } else if (end < 0) {
-      endIndex = Math.abs(end) > length ? 0 : length + end;
+    } else if (arg1 < 0) {
+      endIndex = Math.abs(arg1) > length ? 0 : length + arg1;
     }
 
     let startVal: number = this.start;
