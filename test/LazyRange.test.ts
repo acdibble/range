@@ -9,10 +9,12 @@ describe('LazyRange', () => {
     });
 
     it('throws an error when stop parameter is not provided', () => {
+      // @ts-expect-error
       expect(() => new LazyRange()).toThrow('Parameter "stop" is not a number');
     });
 
     it('throws an error when stop parameter is not a number', () => {
+      // @ts-expect-error
       expect(() => new LazyRange('a')).toThrow('Parameter "stop" is not a number');
     });
 
@@ -65,6 +67,7 @@ describe('LazyRange', () => {
     });
 
     it('throws an error when start parameter is not a number', () => {
+      // @ts-expect-error
       expect(() => new LazyRange('a', 1)).toThrow('Parameter "start" is not a number');
     });
 
@@ -119,6 +122,7 @@ describe('LazyRange', () => {
     });
 
     it('throws an error when step parameter is not a number', () => {
+      // @ts-expect-error
       expect(() => new LazyRange(1, 1, 'a')).toThrow('Parameter "step" is not a number');
     });
 
@@ -132,7 +136,6 @@ describe('LazyRange', () => {
   });
 
   describe('Big tests', () => {
-    /* eslint-disable no-restricted-syntax */
     it('matches a lot of test cases', () => {
       const expectedValues = JSON.parse(fs.readFileSync(`${__dirname}/test1.json`, 'utf8'));
       for (const x of new LazyRange(10)) {
@@ -166,7 +169,6 @@ describe('LazyRange', () => {
         }
       }
     });
-    /* eslint-enable no-restricted-syntax */
   });
 
   describe('LazyRange#toString', () => {
@@ -187,11 +189,11 @@ describe('LazyRange', () => {
       expect(new LazyRange(0, 20, -2).equals(new LazyRange(0, 0))).toBe(true);
     });
 
-    it('finds ranges unequivalent (length difference)', () => {
+    it('finds ranges nonequivalent (length difference)', () => {
       expect(new LazyRange(10).equals(new LazyRange(9))).toBe(false);
     });
 
-    it('finds ranges unequivalent (different values)', () => {
+    it('finds ranges nonequivalent (different values)', () => {
       expect(new LazyRange(-9, 2, 1).equals(new LazyRange(11))).toBe(false);
     });
 
@@ -209,16 +211,12 @@ describe('LazyRange', () => {
   describe('LazyRange#has', () => {
     const range = new LazyRange(0, 20, 2);
     const numbers = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18];
-    it('returns true if an element is found', () => {
-      for (const number of numbers) {
-        expect(range.has(number)).toEqual(true);
-      }
+    it.each(numbers)('returns true if an element is found', (number) => {
+      expect(range.has(number)).toBe(true);
     });
 
-    it('returns false if an element is not found', () => {
-      expect(range.has(-1)).toBe(false);
-      expect(range.has(1)).toBe(false);
-      expect(range.has(11)).toBe(false);
+    it.each([-1, 1, 11])('returns false if an element is not found', (number) => {
+      expect(range.has(number)).toBe(false);
     });
 
     it('returns false if an element is not found', () => {
@@ -234,16 +232,12 @@ describe('LazyRange', () => {
   describe('LazyRange#indexOf', () => {
     const range = new LazyRange(0, 20, 2);
     const numbers = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18];
-    it('returns the index of an element if found', () => {
-      for (let i = 0; i < numbers.length; i += 1) {
-        expect(range.indexOf(numbers[i])).toEqual(i);
-      }
+    it.each(numbers.map((n, i) => [n, i]))('returns the index of an element if found', (num, index) => {
+      expect(range.indexOf(num)).toEqual(index);
     });
 
-    it('returns -1 if no element is found', () => {
-      expect(range.indexOf(-1)).toEqual(-1);
-      expect(range.indexOf(1)).toEqual(-1);
-      expect(range.indexOf(20)).toEqual(-1);
+    it.each([-1, 1, 20])('returns -1 if no element is found', (number) => {
+      expect(range.indexOf(number)).toEqual(-1);
     });
 
     it('returns -1 if no element is found', () => {
@@ -255,59 +249,59 @@ describe('LazyRange', () => {
     const range = new LazyRange(0, 20, 2);
 
     it('grabs all the elements after a start index', () => {
-      expect(range.slice(5).equals(new LazyRange(10, 20, 2))).toEqual(true);
+      expect(range.slice(5).equals(new LazyRange(10, 20, 2))).toBe(true);
     });
 
     it('supports a negative start number', () => {
-      expect(range.slice(-2).equals(new LazyRange(16, 20, 2))).toEqual(true);
+      expect(range.slice(-2).equals(new LazyRange(16, 20, 2))).toBe(true);
     });
 
     it('supports a very negative start number', () => {
-      expect(range.slice(-1112).equals(range)).toEqual(true);
+      expect(range.slice(-1112).equals(range)).toBe(true);
     });
 
     it('supports a start and an end', () => {
-      expect(range.slice(1, 3).equals(new LazyRange(2, 6, 2))).toEqual(true);
+      expect(range.slice(1, 3).equals(new LazyRange(2, 6, 2))).toBe(true);
     });
 
     it('behaves correctly when start > end', () => {
-      expect(range.slice(4, 3).equals(new LazyRange(8, 6, 2))).toEqual(true);
+      expect(range.slice(4, 3).equals(new LazyRange(8, 6, 2))).toBe(true);
     });
 
     it('behaves correctly when start = end', () => {
-      expect(range.slice(4, 4).equals(new LazyRange(8, 8, 2))).toEqual(true);
+      expect(range.slice(4, 4).equals(new LazyRange(8, 8, 2))).toBe(true);
     });
 
     it('behaves correctly when end < 0', () => {
-      expect(range.slice(2, -3).equals(new LazyRange(4, 14, 2))).toEqual(true);
+      expect(range.slice(2, -3).equals(new LazyRange(4, 14, 2))).toBe(true);
     });
 
     it('behaves correctly when end very < 0', () => {
-      expect(range.slice(2, -300).equals(new LazyRange(4, 0, 2))).toEqual(true);
+      expect(range.slice(2, -300).equals(new LazyRange(4, 0, 2))).toBe(true);
     });
 
     it('accepts a step multiplier', () => {
-      expect(range.slice(0, -1, 3).equals(new LazyRange(0, 18, 6))).toEqual(true);
+      expect(range.slice(0, -1, 3).equals(new LazyRange(0, 18, 6))).toBe(true);
     });
 
     it('accepts a step negative multiplier', () => {
-      expect(range.slice(0, -1, -3).equals(new LazyRange(0, 18, -6))).toEqual(true);
+      expect(range.slice(0, -1, -3).equals(new LazyRange(0, 18, -6))).toBe(true);
     });
 
     it('accepts null/undefined in the first position', () => {
-      expect(range.slice(null, -1, 2).equals(new LazyRange(0, 18, 4))).toEqual(true);
+      expect(range.slice(null, -1, 2).equals(new LazyRange(0, 18, 4))).toBe(true);
     });
 
     it('accepts null/undefined in the second position', () => {
-      expect(range.slice(0, null, 2).equals(new LazyRange(0, 18, 4))).toEqual(true);
+      expect(range.slice(0, null, 2).equals(new LazyRange(0, 18, 4))).toBe(true);
     });
 
     it('accepts null/undefined in the third position', () => {
-      expect(range.slice(0, -1, null).equals(new LazyRange(0, 18, 2))).toEqual(true);
+      expect(range.slice(0, -1, null).equals(new LazyRange(0, 18, 2))).toBe(true);
     });
 
     it('accepts null/undefined in all positions', () => {
-      expect(range.slice(null, null, null).equals(new LazyRange(0, 20, 2))).toEqual(true);
+      expect(range.slice(null, null, null).equals(new LazyRange(0, 20, 2))).toBe(true);
     });
   });
 
@@ -327,19 +321,18 @@ describe('LazyRange', () => {
       expect(new LazyRange(0).at(0)).toEqual(undefined);
     });
 
-    it('returns undefined when non-integers are passed in', () => {
-      expect(new LazyRange(10).at([])).toEqual(undefined);
-      expect(new LazyRange(10).at(0.5)).toEqual(undefined);
-      expect(new LazyRange(10).at({})).toEqual(undefined);
-      expect(new LazyRange(10).at('a')).toEqual(undefined);
+    it.each([[], 0.5, {}, 'a'])('returns undefined when non-integers are passed in', (value: any) => {
+      expect(new LazyRange(10).at(value)).toEqual(undefined);
     });
   });
 
   describe('length', () => {
-    it('gets the proper length', () => {
-      expect(new LazyRange(10).length).toEqual(10);
-      expect(new LazyRange(0, 10, -1).length).toEqual(0);
-      expect(new LazyRange(0).length).toEqual(0);
+    it.each([
+      [[10], 10],
+      [[0, 10, -1], 0],
+      [[0], 0],
+    ])('gets the proper length', (args: [number, number?, number?], length) => {
+      expect(new LazyRange(...args).length).toEqual(length);
     });
   });
 });

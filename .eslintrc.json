@@ -5,7 +5,8 @@
     "jest": true
   },
   "extends": [
-    "airbnb-base"
+    "airbnb-base",
+    "plugin:@typescript-eslint/recommended"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -20,7 +21,9 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "import/extensions": "off",
+    "no-restricted-syntax": "off"
   },
   "settings": {
     "import/resolver": {
