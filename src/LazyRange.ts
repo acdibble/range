@@ -14,7 +14,8 @@ class LazyRange {
   readonly length: number;
 
   static isRange(obj: any): obj is LazyRange {
-    return Object.prototype.toString.call(obj) === '[object LazyRange]';
+    return Object.prototype.toString.call(obj) === '[object LazyRange]'
+      && obj instanceof LazyRange;
   }
 
   constructor(start: number, stop?: number, step: number = 1) {
