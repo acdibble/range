@@ -21,17 +21,14 @@
     "@types/node": "^13.9.8",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.3.0",
-    "benchmark": "^2.1.4",
     "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "jest": "^25.2.3",
     "ts-jest": "^25.2.1",
-    "typedoc": "^0.17.3",
     "typescript": "^3.9.0-beta"
   },
   "directories": {
-    "doc": "docs",
     "test": "test"
   },
   "dependencies": {},
