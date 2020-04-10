@@ -1,3 +1,15 @@
+diff --git a/node_modules/tap/package.json b/node_modules/tap/package.json
+index 0000000..2cb8e5e
+--- a/node_modules/tap/package.json
++++ b/node_modules/tap/package.json
+@@ -152,5 +152,6 @@
+     "test-ignore": "/(^|/)cli-tests-[0-9]+/",
+     "check-coverage": true
+   },
+-  "version": "14.10.7"
++  "version": "14.10.7",
++  "types": "types/tap.d.ts"
+ }
 diff --git a/node_modules/tap/types/tap.d.ts b/node_modules/tap/types/tap.d.ts
 new file mode 100644
 index 0000000..2cb8e5e
