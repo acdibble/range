@@ -7,25 +7,24 @@
     "dist"
   ],
   "scripts": {
-    "compile": "rm -rf dist && ./node_modules/.bin/tsc",
-    "test": "jest --watch --collectCoverage",
-    "test:ci": "jest --collectCoverage",
-    "prepublishOnly": "jest && npm run compile"
+    "compile": "rm -rf dist && ./node_modules/.bin/tsc -p tsconfig.build.json",
+    "test": "tap --watch",
+    "test:ci": "tap --100",
+    "prepublishOnly": "npm run test:ci && npm run compile"
   },
   "author": "Andrew Dibble <acdibble@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@babel/parser": "^7.6.0",
     "@babel/types": "^7.6.1",
-    "@types/jest": "^25.1.4",
     "@types/node": "^13.9.8",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.3.0",
     "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "jest": "^25.2.3",
-    "ts-jest": "^25.2.1",
+    "patch-package": "^6.2.2",
+    "tap": "^14.10.7",
     "typescript": "^3.9.0-beta"
   },
   "directories": {

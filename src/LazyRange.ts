@@ -106,7 +106,7 @@ class LazyRange {
   slice(arg0?: number | null, arg1?: number | null, arg2: number = 1): LazyRange {
     const { length } = this;
 
-    const stepMult = isNumber(arg2) && Number.isInteger(arg2)
+    const stepMult = Number.isInteger(arg2)
       ? arg2
       : 1;
 
