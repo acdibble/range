@@ -178,6 +178,35 @@ class LazyRange {
       },
     };
   }
+
+  takeWhile(cb: (n: number) => boolean): IterableIterator<number> {
+    const { start, length, step } = this;
+    let nextValue = start;
+    let i = 0;
+    let done = false;
+
+    return {
+      next(): IteratorResult<number, undefined> {
+        if (done || i >= length) {
+          return { value: undefined, done: true };
+        }
+
+
+        if (cb(nextValue)) {
+          const result: IteratorResult<number> = { value: nextValue, done: false };
+          i += 1;
+          nextValue = start + (i * step);
+          return result;
+        }
+
+        done = true;
+        return { value: undefined, done: true };
+      },
+      [Symbol.iterator](): IterableIterator<number> {
+        return this;
+      },
+    };
+  }
 }
 
 export = LazyRange;
