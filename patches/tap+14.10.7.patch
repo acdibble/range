@@ -23,10 +23,10 @@ index 0000000..2cb8e5e
 +export = tap;
 diff --git a/node_modules/tap/types/test.d.ts b/node_modules/tap/types/test.d.ts
 new file mode 100644
-index 0000000..3a7f9c5
+index 0000000..0f7d43e
 --- /dev/null
 +++ b/node_modules/tap/types/test.d.ts
-@@ -0,0 +1,215 @@
+@@ -0,0 +1,221 @@
 +type AnyFunction = (...args: any[]) => any;
 +type Constructor<T extends {} = {}> = new (...args: any[]) => T;
 +
@@ -206,17 +206,23 @@ index 0000000..3a7f9c5
 +  export interface Throws {
 +    (fn: AnyFunction): boolean;
 +    (fn: AnyFunction, message: string): boolean;
-+    (fn: AnyFunction, expectedError: Error): boolean;
-+    (fn: AnyFunction, expectedError: Error, message: string): boolean;
-+    (fn: AnyFunction, expectedError: Error, extra: Options.Assert): boolean
++    (fn: AnyFunction, expectedError: Object): boolean;
++    (fn: AnyFunction, expectedError: Object, message: string): boolean;
++    (fn: AnyFunction, expectedError: Object, extra: Options.Assert): boolean
 +    (fn: AnyFunction, message: string, extra: Options.Assert): boolean
-+    (fn: AnyFunction, expectedError: Error, message: string, extra: Options.Assert): boolean
-+    (fn: AnyFunction, arg1?: string | Error, arg2?: string | Error | Options.Assert, arg3?: Options.Assert): boolean
++    (fn: AnyFunction, expectedError: Object, message: string, extra: Options.Assert): boolean
++    (fn: AnyFunction, arg1?: string | Object, arg2?: string | Object | Options.Assert, arg3?: Options.Assert): boolean
 +  }
 +
 +  export type DoesNotThrow = (fn?: (a: any) => any, message?: string, extra?: Options.Assert) => boolean
 +
-+  export type Equal = (found: any, wanted: any, message?: string, extra?: Options.Assert) => boolean
++  export interface Equal {
++    <T>(found: T, wanted: T): boolean;
++    <T>(found: T, wanted: T, message: string): boolean;
++    <T>(found: T, wanted: T, extra: Options.Assert): boolean;
++    <T>(found: T, wanted: T, message: string, extra: Options.Assert): boolean;
++    <T>(found: T, wanted: T, message?: string, extra?: Options.Assert): boolean;
++  }
 +
 +  export type NotEqual = (found: any, notWanted: any, message?: string, extra?: Options.Assert) => boolean
 +
