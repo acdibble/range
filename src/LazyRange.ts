@@ -157,6 +157,27 @@ class LazyRange {
   get [Symbol.toStringTag](): string {
     return this.constructor.name;
   }
+
+  take(amount: number): IterableIterator<number> {
+    const { start, length, step } = this;
+    let nextValue = start;
+    let i = 0;
+
+    return {
+      next(): IteratorResult<number, undefined> {
+        if (i < length && i < amount) {
+          const result: IteratorResult<number> = { value: nextValue, done: false };
+          i += 1;
+          nextValue = start + (i * step);
+          return result;
+        }
+        return { value: undefined, done: true };
+      },
+      [Symbol.iterator](): IterableIterator<number> {
+        return this;
+      },
+    };
+  }
 }
 
 export = LazyRange;
