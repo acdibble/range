@@ -1,4 +1,4 @@
-const isNumber = (obj: any): obj is number => typeof obj === 'number'
+const isNumber = (obj: unknown): obj is number => typeof obj === 'number'
   && Object.prototype.toString.call(obj) === '[object Number]'
   && !Number.isNaN(obj);
 
@@ -11,7 +11,7 @@ class LazyRange {
 
   readonly length: number;
 
-  static isRange(obj: any): obj is LazyRange {
+  static isRange(obj: unknown): obj is LazyRange {
     return Object.prototype.toString.call(obj) === '[object LazyRange]'
       && obj instanceof LazyRange;
   }
@@ -19,7 +19,7 @@ class LazyRange {
   constructor(stop: number);
   constructor(start: number, stop: number);
   constructor(start: number, stop: number, step: number);
-  constructor(arg0: number, arg1?: number, arg2: number = 1) {
+  constructor(arg0: number, arg1?: number, arg2 = 1) {
     let rangeStart = arg0;
     let rangeStop = arg1;
 
@@ -68,7 +68,7 @@ class LazyRange {
     }
   }
 
-  equals(range: any): boolean {
+  equals(range: unknown): boolean {
     if (!LazyRange.isRange(range)) return false;
 
     if (this.length !== range.length) return false;
@@ -103,7 +103,7 @@ class LazyRange {
   slice(start: number): LazyRange;
   slice(start: number | null, stop: number): LazyRange;
   slice(start: number | null, stop: number | null, step: number): LazyRange;
-  slice(arg0?: number | null, arg1?: number | null, arg2: number = 1): LazyRange {
+  slice(arg0?: number | null, arg1?: number | null, arg2 = 1): LazyRange {
     const { length } = this;
 
     const stepMult = Number.isInteger(arg2)
@@ -155,7 +155,7 @@ class LazyRange {
   }
 
   get [Symbol.toStringTag](): string {
-    return 'LazyRange';
+    return this.constructor.name;
   }
 }
 

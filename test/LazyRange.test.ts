@@ -10,12 +10,12 @@ tap.test('LazyRange', async (suite) => {
     });
 
     subSuite.test('throws an error when stop parameter is not a number', async (t) => {
-      // @ts-expect-error
+      // @ts-ignore
       t.throws(() => new LazyRange(), 'Parameter "stop" is not a number');
     });
 
     subSuite.test('throws an error when stop parameter is not a number', async (t) => {
-      // @ts-expect-error
+      // @ts-ignore
       t.throws(() => new LazyRange('a'), 'Parameter "stop" is not a number');
     });
 
@@ -66,7 +66,7 @@ tap.test('LazyRange', async (suite) => {
     });
 
     subSuite.test('throws an error when start parameter is not a number', async (t) => {
-      // @ts-expect-error
+      // @ts-ignore
       t.throws(() => new LazyRange('a', 1), 'Parameter "start" is not a number');
     });
 
@@ -121,7 +121,7 @@ tap.test('LazyRange', async (suite) => {
     });
 
     subSuite.test('throws an error when step parameter is not a number', async (t) => {
-      // @ts-expect-error
+      // @ts-ignore
       t.throws(() => new LazyRange(1, 1, 'a'), 'Parameter "step" is not a number');
     });
 
@@ -306,7 +306,7 @@ tap.test('LazyRange', async (suite) => {
     });
 
     subSuite.test('accepts null/undefined in the third position', async (t) => {
-      // @ts-expect-error
+      // @ts-ignore
       t.true(range.slice(2, -3, null).equals(new LazyRange(4, 14, 2)));
     });
   });
@@ -341,7 +341,7 @@ tap.test('LazyRange', async (suite) => {
       [[0], 0],
     ] as [([number] | [number, number, number]), number][]).forEach(([[a, b, c], length]) => {
       subSuite.test('gets the proper length', async (t) => (
-        // @ts-expect-error
+        // @ts-ignore
         t.equal(new LazyRange(a, b, c).length, length)
       ));
     });
