@@ -207,6 +207,37 @@ class LazyRange {
       },
     };
   }
+
+  skip(amount: number): IterableIterator<number> {
+    const { start, length, step } = this;
+
+    if (!isNumber(amount)) {
+      throw new TypeError('Parameter "amount" is not a number');
+    } else if (!Number.isInteger(amount)) {
+      throw new TypeError('Parameter "amount" must be an integer');
+    } else if (amount < 0) {
+      throw new RangeError('Parameter "amount" must not be negative');
+    }
+
+    let nextValue = start + (amount * step);
+    let i = amount;
+
+    return {
+      next(): IteratorResult<number, undefined> {
+        if (i >= length) {
+          return { value: undefined, done: true };
+        }
+
+        const result: IteratorResult<number> = { value: nextValue, done: false };
+        i += 1;
+        nextValue = start + (i * step);
+        return result;
+      },
+      [Symbol.iterator](): IterableIterator<number> {
+        return this;
+      },
+    };
+  }
 }
 
 export = LazyRange;
