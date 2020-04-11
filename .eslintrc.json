@@ -25,7 +25,16 @@
     "no-restricted-syntax": "off",
     "no-dupe-class-members": "off",
     "no-useless-constructor": "off",
-    "lines-between-class-members": "off"
+    "lines-between-class-members": "off",
+    "@typescript-eslint/no-this-alias": [
+      "error",
+      {
+        "allowDestructuring": true,
+        "allowedNames": [
+          "self"
+        ]
+      }
+    ]
   },
   "settings": {
     "import/resolver": {

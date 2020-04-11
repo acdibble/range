@@ -179,35 +179,6 @@ class LazyRange {
     };
   }
 
-  takeWhile(cb: (n: number) => boolean): IterableIterator<number> {
-    const { start, length, step } = this;
-    let nextValue = start;
-    let i = 0;
-    let done = false;
-
-    return {
-      next(): IteratorResult<number, undefined> {
-        if (done || i >= length) {
-          return { value: undefined, done: true };
-        }
-
-
-        if (cb(nextValue)) {
-          const result: IteratorResult<number> = { value: nextValue, done: false };
-          i += 1;
-          nextValue = start + (i * step);
-          return result;
-        }
-
-        done = true;
-        return { value: undefined, done: true };
-      },
-      [Symbol.iterator](): IterableIterator<number> {
-        return this;
-      },
-    };
-  }
-
   skip(amount: number): IterableIterator<number> {
     const { start, length, step } = this;
 
@@ -232,6 +203,33 @@ class LazyRange {
         i += 1;
         nextValue = start + (i * step);
         return result;
+      },
+      [Symbol.iterator](): IterableIterator<number> {
+        return this;
+      },
+    };
+  }
+
+  filter(cb: (n: number, index: number, range: LazyRange) => boolean): IterableIterator<number> {
+    const { start, length, step } = this;
+    const self = this;
+    let nextValue: number;
+    let i = -1;
+
+    return {
+      next(): IteratorResult<number, undefined> {
+        if (i >= length) {
+          return { value: undefined, done: true };
+        }
+
+        do {
+          i += 1;
+          nextValue = start + (i * step);
+        } while (i < length && !cb(nextValue, i, self));
+
+        return i < length
+          ? { value: nextValue, done: false }
+          : { value: undefined, done: true };
       },
       [Symbol.iterator](): IterableIterator<number> {
         return this;
