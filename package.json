@@ -16,7 +16,7 @@
   "author": "Andrew Dibble <acdibble@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "@babel/parser": "^7.6.0",
+    "@babel/parser": "^7.18.13",
     "@babel/types": "^7.6.1",
     "@types/node": "^15.6.1",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
